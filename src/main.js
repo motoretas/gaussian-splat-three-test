@@ -6,7 +6,6 @@ const SPLAT_PATH = `${import.meta.env.BASE_URL}splats/sample.splat`;
 
 const statusEl = document.getElementById('status');
 const splatPathEl = document.getElementById('splat-path');
-
 splatPathEl.textContent = SPLAT_PATH;
 
 function setStatus(msg, type = '') {
@@ -38,24 +37,29 @@ async function init() {
   setStatus('Loading splat...');
 
   try {
+    // Bonsai scene camera — cameraUp [0,-1,0] is standard for most 3DGS exports
     const viewer = new GaussianSplats3D.Viewer({
       selfDrivenMode: true,
       useBuiltInControls: true,
-      // Camera defaults — works for most splats
-      cameraUp: [0, 1, 0],
-      initialCameraPosition: [0, 0.5, 3],
-      initialCameraLookAt: [0, 0, 0],
-      // Render into the #app div
+      cameraUp: [0, -1, 0],
+      initialCameraPosition: [-1, -4, 6],
+      initialCameraLookAt: [0, 4, 0],
       rootElement: document.getElementById('app'),
+      gpuAcceleratedSort: true,
+      sharedMemoryForWorkers: false,
     });
 
-    await viewer.addSplatScene(SPLAT_PATH, {
+    viewer.addSplatScene(SPLAT_PATH, {
       showLoadingUI: false,
       splatAlphaRemovalThreshold: 5,
+    }).then(() => {
+      viewer.start();
+      setStatus('Loaded — drag to orbit', 'loaded');
+    }).catch(err => {
+      setStatus(`Error loading scene: ${err.message}`, 'error');
+      console.error(err);
     });
 
-    viewer.start();
-    setStatus('Cargado — arrastra para orbitar', 'loaded');
   } catch (err) {
     setStatus(`Error: ${err.message}`, 'error');
     console.error(err);
