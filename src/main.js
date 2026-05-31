@@ -4,7 +4,7 @@ import * as GaussianSplats3D from '@mkkellogg/gaussian-splats-3d';
 // Place your .splat, .ksplat, or compatible .ply file in:
 //   public/splats/sample.splat
 // Then run: npm run dev
-const SPLAT_PATH = '/splats/sample.splat';
+const SPLAT_PATH = `${import.meta.env.BASE_URL}splats/sample.splat`;
 // ─────────────────────────────────────────────────────────────────────────────
 
 const statusEl = document.getElementById('status');
