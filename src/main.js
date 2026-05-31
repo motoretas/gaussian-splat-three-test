@@ -42,8 +42,8 @@ async function init() {
       selfDrivenMode: true,
       useBuiltInControls: true,
       // Camera defaults — works for most splats
-      cameraUp: [0, -1, 0],
-      initialCameraPosition: [0, 1, 5],
+      cameraUp: [0, 1, 0],
+      initialCameraPosition: [0, 0.5, 3],
       initialCameraLookAt: [0, 0, 0],
       // Render into the #app div
       rootElement: document.getElementById('app'),
