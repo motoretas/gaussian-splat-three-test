@@ -41,9 +41,9 @@ async function init() {
     const viewer = new GaussianSplats3D.Viewer({
       selfDrivenMode: true,
       useBuiltInControls: true,
-      cameraUp: [0, -1, 0],
-      initialCameraPosition: [-1, -4, 6],
-      initialCameraLookAt: [0, 4, 0],
+      cameraUp: [0, 1, 0],
+      initialCameraPosition: [0, 0, 5],
+      initialCameraLookAt: [0, 0, 0],
       rootElement: document.getElementById('app'),
       gpuAcceleratedSort: true,
       sharedMemoryForWorkers: false,
