@@ -1,9 +1,6 @@
 import * as GaussianSplats3D from '@mkkellogg/gaussian-splats-3d';
 
 // ─── Change this to load a different splat file ───────────────────────────────
-// Place your .splat, .ksplat, or compatible .ply file in:
-//   public/splats/sample.splat
-// Then run: npm run dev
 const SPLAT_PATH = `${import.meta.env.BASE_URL}splats/sample.splat`;
 // ─────────────────────────────────────────────────────────────────────────────
 
@@ -17,7 +14,6 @@ function setStatus(msg, type = '') {
   statusEl.className = type;
 }
 
-// Check if the file exists before trying to load the viewer
 async function fileExists(url) {
   try {
     const res = await fetch(url, { method: 'HEAD' });
@@ -43,25 +39,25 @@ async function init() {
 
   try {
     const viewer = new GaussianSplats3D.Viewer({
-      // Mount into #app div
-      rootElement: document.getElementById('app'),
       selfDrivenMode: true,
       useBuiltInControls: true,
-      // Reduce initial memory footprint
-      gpuAcceleratedSort: true,
+      // Camera defaults — works for most splats
+      cameraUp: [0, -1, 0],
+      initialCameraPosition: [0, 1, 5],
+      initialCameraLookAt: [0, 0, 0],
+      // Render into the #app div
+      rootElement: document.getElementById('app'),
     });
 
     await viewer.addSplatScene(SPLAT_PATH, {
       showLoadingUI: false,
-      position: [0, 0, 0],
-      rotation: [0, 0, 0, 1],
-      scale: [1, 1, 1],
+      splatAlphaRemovalThreshold: 5,
     });
 
     viewer.start();
-    setStatus('Loaded — click and drag to orbit', 'loaded');
+    setStatus('Cargado — arrastra para orbitar', 'loaded');
   } catch (err) {
-    setStatus(`Error loading splat:\n${err.message}`, 'error');
+    setStatus(`Error: ${err.message}`, 'error');
     console.error(err);
   }
 }
