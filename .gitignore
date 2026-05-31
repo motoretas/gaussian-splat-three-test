@@ -3,7 +3,7 @@ dist/
 .DS_Store
 *.local
 
-# Keep the splats directory but not any actual splat files (they can be large)
-public/splats/*.splat
-public/splats/*.ksplat
-public/splats/*.ply
+# Splat files are tracked (remove these lines if files get too large for GitHub)
+# public/splats/*.splat
+# public/splats/*.ksplat
+# public/splats/*.ply
